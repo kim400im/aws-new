@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인 페이지</title>
+</head>
+<body>
+  <h2>로그인</h2>
+  <input id="userid" placeholder="아이디">
+  <input id="password" type="password" placeholder="비밀번호">
+  <button onclick="login()">로그인</button>
+
+  <h1 id="welcome" style="display:none;">Welcome!</h1>
+
+  <script>
+    async function login() {
+      const userid = document.getElementById('userid').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('http://api.stai.kr/auth/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ userid, password }),
+      });
+
+      if (res.ok) {
+        document.querySelector('h2').style.display = 'none';
+        document.querySelector('input#userid').style.display = 'none';
+        document.querySelector('input#password').style.display = 'none';
+        document.querySelector('button').style.display = 'none';
+        document.body.querySelector('#welcome').style.display = 'block';
+      } else {
+        alert('로그인 실패');
+      }
+    }
+
+  function login() {
+    login();
+  }
+</script>
+
+<div id="welcome" style="display:none;">
+  <h1>Welcome!</h1>
+</div>
+
+</body>
+</html>
